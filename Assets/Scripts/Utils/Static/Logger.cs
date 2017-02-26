@@ -11,7 +11,7 @@
 
 using UnityEngine;
 
-namespace TurboLabz.Gamebet
+namespace TurboLabz.UnityStateMachine
 {
     public static class Logger
     {

@@ -13,7 +13,7 @@ using System;
 
 using UnityEngine;
 
-namespace TurboLabz.Gamebet
+namespace TurboLabz.UnityStateMachine
 {
     public class Test : MonoBehaviour
     {

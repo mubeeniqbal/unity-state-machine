@@ -12,7 +12,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TurboLabz.Gamebet
+namespace TurboLabz.UnityStateMachine
 {
     public partial class StateMachine<TState, TTrigger> : IStateMachine<TState, TTrigger>
     {

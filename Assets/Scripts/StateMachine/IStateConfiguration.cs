@@ -11,7 +11,7 @@
 
 using System;
 
-namespace TurboLabz.Gamebet
+namespace TurboLabz.UnityStateMachine
 {
     public interface IStateConfiguration<TState, TTrigger>
     {

@@ -11,7 +11,7 @@
 
 using System.Diagnostics;
 
-namespace TurboLabz.Gamebet
+namespace TurboLabz.UnityStateMachine
 {
     public static class Assertions
     {
