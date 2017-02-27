@@ -58,7 +58,10 @@ namespace TurboLabz.UnityStateMachine
 
         public void Fire(TTrigger trigger)
         {
-            Assertions.Assert(permittedTriggers.Contains(trigger), "Trigger " + trigger + " is not configured for state " + currentState);
+            if (!permittedTriggers.Contains(trigger))
+            {
+                throw new NotSupportedException("Trigger " + trigger + " is not configured for state " + currentState);
+            }
 
             TState oldState = currentState;
             TState newState = currentStateRepresentation.GetTransitionState(trigger);
@@ -97,7 +100,10 @@ namespace TurboLabz.UnityStateMachine
 
         public void OnTransitioned(Action action)
         {
-            Assertions.Assert(action != null, "Action parameter must not be null");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "Action parameter must not be null.");
+            }
 
             _onTransition = action;
         }
@@ -116,7 +122,10 @@ namespace TurboLabz.UnityStateMachine
 
         private IStateRepresentation<TState, TTrigger> GetStateRepresentation(TState state)
         {
-            Assertions.Assert(_stateConfigurations.ContainsKey(state), "State " + state + " is not configured yet so no representation exists for it!");
+            if (!_stateConfigurations.ContainsKey(state))
+            {
+                throw new NotSupportedException("State " + state + " is not configured yet so no representation exists for it!");
+            }
 
             return _stateConfigurations[state].stateRepresentation;
         }

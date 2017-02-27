@@ -67,7 +67,10 @@ namespace TurboLabz.UnityStateMachine
 
         public IStateConfiguration<TState, TTrigger> OnActivate(Action action)
         {
-            Assertions.Assert(action != null, "action parameter must not be null!");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "action parameter must not be null");
+            }
 
             stateRepresentation.AddActivationAction(action);
             return this;
@@ -75,7 +78,10 @@ namespace TurboLabz.UnityStateMachine
 
         public IStateConfiguration<TState, TTrigger> OnDeactivate(Action action)
         {
-            Assertions.Assert(action != null, "action parameter must not be null!");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "action parameter must not be null");
+            }
 
             stateRepresentation.AddDeactivationAction(action);
             return this;
@@ -83,7 +89,10 @@ namespace TurboLabz.UnityStateMachine
 
         public IStateConfiguration<TState, TTrigger> OnEnter(Action action)
         {
-            Assertions.Assert(action != null, "action parameter must not be null!");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "action parameter must not be null");
+            }
 
             stateRepresentation.AddEntryAction(action);
             return this;
@@ -91,7 +100,10 @@ namespace TurboLabz.UnityStateMachine
 
         public IStateConfiguration<TState, TTrigger> OnExit(Action action)
         {
-            Assertions.Assert(action != null, "action parameter must not be null!");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "action parameter must not be null");
+            }
 
             stateRepresentation.AddExitAction(action);
             return this;

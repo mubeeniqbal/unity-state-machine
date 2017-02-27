@@ -80,23 +80,23 @@ namespace TurboLabz.UnityStateMachine
 
         static void StartCallTimer()
         {
-            Logger.Log("[Timer:] Call started at " + DateTime.Now);
+            Debug.Log("[Timer:] Call started at " + DateTime.Now);
         }
 
         static void StopCallTimer()
         {
-            Logger.Log("[Timer:] Call ended at " + DateTime.Now);
+            Debug.Log("[Timer:] Call ended at " + DateTime.Now);
         }
 
         static void Fire(IStateMachine<State, Trigger> phoneCall, Trigger trigger)
         {
-            Logger.Log("[Firing:] " + trigger);
+            Debug.Log("[Firing:] " + trigger);
             phoneCall.Fire(trigger);
         }
 
         static void Print(IStateMachine<State, Trigger> phoneCall)
         {
-            Logger.Log("[Status:] " + phoneCall);
+            Debug.Log("[Status:] " + phoneCall);
         }
     }
 }

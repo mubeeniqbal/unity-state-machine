@@ -53,14 +53,20 @@ namespace TurboLabz.UnityStateMachine
 
         public void RemoveTransition(TTrigger trigger)
         {
-            Assertions.Assert(_transitions.ContainsKey(trigger), "No transition present for trigger " + trigger);
+            if (!_transitions.ContainsKey(trigger))
+            {
+                throw new NotSupportedException("No transition present for trigger " + trigger);
+            }
 
             _transitions.Remove(trigger);
         }
 
         public TState GetTransitionState(TTrigger trigger)
         {
-            Assertions.Assert(_transitions.ContainsKey(trigger), "No transition present for trigger " + trigger);
+            if (!_transitions.ContainsKey(trigger))
+            {
+                throw new KeyNotFoundException("No transition present for trigger " + trigger);
+            }
 
             return _transitions[trigger];
         }
@@ -113,32 +119,60 @@ namespace TurboLabz.UnityStateMachine
 
         public void AddActivationAction(Action action)
         {
-            Assertions.Assert(action != null, "Action parameter must not be null");
-            Assertions.Assert(!_activationActions.Contains(action), "Action already added to activationActions");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "Action parameter must not be null");
+            }
+
+            if (_activationActions.Contains(action))
+            {
+                throw new NotSupportedException("Action " + action + " is already added to activationActions");
+            }
 
             _activationActions.Add(action);
         }
 
         public void AddDeactivationAction(Action action)
         {
-            Assertions.Assert(action != null, "Action parameter must not be null");
-            Assertions.Assert(!_deactivationActions.Contains(action), "Action already added to deactivationActions");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "Action parameter must not be null");
+            }
+
+            if (_deactivationActions.Contains(action))
+            {
+                throw new NotSupportedException("Action " + action + " is already added to deactivationActions");
+            }
 
             _deactivationActions.Add(action);
         }
 
         public void AddEntryAction(Action action)
         {
-            Assertions.Assert(action != null, "Action parameter must not be null");
-            Assertions.Assert(!_entryActions.Contains(action), "Action already added to entryActions");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "Action parameter must not be null");
+            }
+
+            if (_entryActions.Contains(action))
+            {
+                throw new NotSupportedException("Action " + action + " is already added to entryActions");
+            }
 
             _entryActions.Add(action);
         }
 
         public void AddExitAction(Action action)
         {
-            Assertions.Assert(action != null, "Action parameter must not be null");
-            Assertions.Assert(!_exitActions.Contains(action), "Action already added to exitActions");
+            if (action == null)
+            {
+                throw new ArgumentNullException("action", "Action parameter must not be null");
+            }
+
+            if (_exitActions.Contains(action))
+            {
+                throw new NotSupportedException("Action " + action + " is already added to exitActions");
+            }
 
             _exitActions.Add(action);
         }
