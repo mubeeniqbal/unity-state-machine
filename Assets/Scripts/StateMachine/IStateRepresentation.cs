@@ -17,6 +17,7 @@ namespace TurboLabz.UnityStateMachine
     public interface IStateRepresentation<TState, TTrigger>
     {
         TState state { get; }
+        IStateRepresentation<TState, TTrigger> superState { get; set; }
         ICollection<TTrigger> permittedTriggers { get; }
 
         bool CanHandle(TTrigger trigger);

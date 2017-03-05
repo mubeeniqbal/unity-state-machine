@@ -108,5 +108,10 @@ namespace TurboLabz.UnityStateMachine
             stateRepresentation.AddExitAction(action);
             return this;
         }
+
+        public IStateConfiguration<TState, TTrigger> SubstateOf(TState superstate)
+        {
+            return null;
+        }
     }
 }

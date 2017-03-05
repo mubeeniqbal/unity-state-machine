@@ -19,14 +19,16 @@ namespace TurboLabz.UnityStateMachine
         // Remember that transitions are always outgoing for a state. They
         // can never be incoming. Every state can only control where it can
         // go next, not from where the state was reached.
-        private IDictionary<TTrigger, TState> _transitions = new Dictionary<TTrigger, TState>();
-        private IList<Action> _activationActions = new List<Action>();
-        private IList<Action> _deactivationActions = new List<Action>();
-        private IList<Action> _entryActions = new List<Action>();
-        private IList<Action> _exitActions = new List<Action>();
+        private readonly IDictionary<TTrigger, TState> _transitions = new Dictionary<TTrigger, TState>();
+        private readonly IList<Action> _activationActions = new List<Action>();
+        private readonly IList<Action> _deactivationActions = new List<Action>();
+        private readonly IList<Action> _entryActions = new List<Action>();
+        private readonly IList<Action> _exitActions = new List<Action>();
         private bool _isActive;
+        private readonly IList<IStateRepresentation<TState, TTrigger>> _subStates = new List<IStateRepresentation<TState, TTrigger>>();
 
         public TState state { get; private set; }
+        public IStateRepresentation<TState, TTrigger> superState { get; set; }
 
         public ICollection<TTrigger> permittedTriggers
         {
@@ -73,6 +75,11 @@ namespace TurboLabz.UnityStateMachine
 
         public void Activate()
         {
+            if (superState != null)
+            {
+                superState.Activate();
+            }
+
             if (_isActive)
             {
                 return;
@@ -99,6 +106,11 @@ namespace TurboLabz.UnityStateMachine
             }
 
             _isActive = false;
+
+            if (superState != null)
+            {
+                superState.Deactivate();
+            }
         }
 
         public void Enter()
