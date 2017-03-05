@@ -69,4 +69,6 @@ Unity State Machine runs on Unity using C# .NET 3.5. Just use it in your project
 
 This page is an almost-complete description of Unity State Machine, and its explicit aim is to remain minimal. The project was started in an effort to create an easy to use state machine framework for use in the Unity game engine.
 
+The ultimate goal of the project is to implement most (but perhaps not all) of the features of a finite state machine as explained in [this article](http://www.patrickvanbergen.com/on_fsm/on_fsm.html).
+
 Please use the issue tracker if you'd like to report problems or discuss features.
