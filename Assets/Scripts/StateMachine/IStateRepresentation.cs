@@ -26,8 +26,8 @@ namespace TurboLabz.UnityStateMachine
         TState GetTransitionState(TTrigger trigger);
         void Activate();
         void Deactivate();
-        void Enter();
-        void Exit();
+        void OnEnter();
+        void OnExit();
         void AddActivationAction(Action action);
         void AddDeactivationAction(Action action);
         void AddEntryAction(Action action);

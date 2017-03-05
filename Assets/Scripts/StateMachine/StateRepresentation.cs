@@ -113,7 +113,7 @@ namespace TurboLabz.UnityStateMachine
             }
         }
 
-        public void Enter()
+        public void OnEnter()
         {
             foreach (Action action in _entryActions)
             {
@@ -121,7 +121,7 @@ namespace TurboLabz.UnityStateMachine
             }
         }
 
-        public void Exit()
+        public void OnExit()
         {
             foreach (Action action in _exitActions)
             {

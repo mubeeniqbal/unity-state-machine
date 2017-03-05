@@ -73,8 +73,8 @@ namespace TurboLabz.UnityStateMachine
                 _onTransition();
             }
 
-            oldStateRepresentation.Exit();
-            newStateRepresentation.Enter();
+            oldStateRepresentation.OnExit();
+            newStateRepresentation.OnEnter();
             currentState = newState;
         }
 
