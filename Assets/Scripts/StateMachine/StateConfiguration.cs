@@ -66,28 +66,6 @@ namespace TurboLabz.UnityStateMachine
             return this;
         }
 
-        public IStateConfiguration<TState, TTrigger> OnActivate(Action action)
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException("action", "action parameter must not be null");
-            }
-
-            stateRepresentation.AddActivationAction(action);
-            return this;
-        }
-
-        public IStateConfiguration<TState, TTrigger> OnDeactivate(Action action)
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException("action", "action parameter must not be null");
-            }
-
-            stateRepresentation.AddDeactivationAction(action);
-            return this;
-        }
-
         public IStateConfiguration<TState, TTrigger> OnEnter(Action action)
         {
             if (action == null)

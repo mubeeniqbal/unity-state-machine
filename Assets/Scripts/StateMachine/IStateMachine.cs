@@ -42,22 +42,6 @@ namespace TurboLabz.UnityStateMachine
         void Fire(TTrigger trigger);
 
         /// <summary>
-        /// Activates current state. Actions associated with activating the
-        /// currrent state will be invoked. The activation is idempotent and
-        /// subsequent activation of the same current state will not lead to
-        /// re-execution of activation callbacks.
-        /// </summary>
-        void Activate();
-
-        /// <summary>
-        /// Deactivates current state. Actions associated with deactivating
-        /// the currrent state will be invoked. The deactivation is idempotent
-        /// and subsequent deactivation of the same current state will not lead
-        /// to re-execution of deactivation callbacks.
-        /// </summary>
-        void Deactivate();
-
-        /// <summary>
         /// Determine if the state machine is in the supplied state.
         /// </summary>
         /// <param name="state">The state to test for.</param>

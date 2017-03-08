@@ -87,22 +87,6 @@ namespace TurboLabz.UnityStateMachine
         IStateConfiguration<TState, TTrigger> PermitReentryIf(TTrigger trigger, Func<bool> guard);
 
         /// <summary>
-        /// Specify an action that will execute when activating
-        /// the configured state.
-        /// </summary>
-        /// <param name="action">Action to execute.</param>
-        /// <returns>The receiver.</returns>
-        IStateConfiguration<TState, TTrigger> OnActivate(Action action);
-
-        /// <summary>
-        /// Specify an action that will execute when deactivating
-        /// the configured state.
-        /// </summary>
-        /// <param name="action">Action to execute.</param>
-        /// <returns>The receiver.</returns>
-        IStateConfiguration<TState, TTrigger> OnDeactivate(Action action);
-
-        /// <summary>
         /// Specify an action that will execute when transitioning into
         /// the configured state.
         /// </summary>

@@ -21,11 +21,9 @@ namespace TurboLabz.UnityStateMachine
         // can never be incoming. Every state can only control where it can
         // go next, not from where the state was reached.
         private readonly IDictionary<TTrigger, TState> _transitions = new Dictionary<TTrigger, TState>();
-        private readonly IList<Action> _activationActions = new List<Action>();
-        private readonly IList<Action> _deactivationActions = new List<Action>();
+        private bool _isActive;
         private readonly IList<Action> _entryActions = new List<Action>();
         private readonly IList<Action> _exitActions = new List<Action>();
-        private bool _isActive;
         private readonly IList<IStateRepresentation<TState, TTrigger>> _subStates = new List<IStateRepresentation<TState, TTrigger>>();
 
         public TState state { get; private set; }
@@ -74,46 +72,6 @@ namespace TurboLabz.UnityStateMachine
             return _transitions[trigger];
         }
 
-        public void Activate()
-        {
-            if (superState != null)
-            {
-                superState.Activate();
-            }
-
-            if (_isActive)
-            {
-                return;
-            }
-
-            foreach (Action action in _activationActions)
-            {
-                action();
-            }
-
-            _isActive = true;
-        }
-
-        public void Deactivate()
-        {
-            if (!_isActive)
-            {
-                return;
-            }
-
-            foreach (Action action in _deactivationActions)
-            {
-                action();
-            }
-
-            _isActive = false;
-
-            if (superState != null)
-            {
-                superState.Deactivate();
-            }
-        }
-
         public void OnEnter()
         {
             foreach (Action action in _entryActions)
@@ -128,36 +86,6 @@ namespace TurboLabz.UnityStateMachine
             {
                 action();
             }
-        }
-
-        public void AddActivationAction(Action action)
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException("action", "Action parameter must not be null");
-            }
-
-            if (_activationActions.Contains(action))
-            {
-                throw new NotSupportedException("Action " + action + " is already added to activationActions");
-            }
-
-            _activationActions.Add(action);
-        }
-
-        public void AddDeactivationAction(Action action)
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException("action", "Action parameter must not be null");
-            }
-
-            if (_deactivationActions.Contains(action))
-            {
-                throw new NotSupportedException("Action " + action + " is already added to deactivationActions");
-            }
-
-            _deactivationActions.Add(action);
         }
 
         public void AddEntryAction(Action action)

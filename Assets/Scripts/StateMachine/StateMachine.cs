@@ -79,16 +79,6 @@ namespace TurboLabz.UnityStateMachine
             currentState = newState;
         }
 
-        public void Activate()
-        {
-            currentStateRepresentation.Activate();
-        }
-
-        public void Deactivate()
-        {
-            currentStateRepresentation.Deactivate();
-        }
-
         public bool IsInState(TState state)
         {
             return currentState.Equals(state);
