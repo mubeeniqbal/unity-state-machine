@@ -25,9 +25,18 @@ namespace TurboLabz.UnityStateMachine
         void AddTransition(TTrigger trigger, TState state);
         void RemoveTransition(TTrigger trigger);
         TState GetTransitionState(TTrigger trigger);
-        void OnEnter();
-        void OnExit();
+        void OnEnter(ITransition<TState, TTrigger> transition);
+        void OnExit(ITransition<TState, TTrigger> transition);
         void AddEntryAction(Action action);
         void AddExitAction(Action action);
+
+        /// <summary>
+        /// Returns true if <paramref name="state"/> is equal to this state or
+        /// to any of its sub-states.
+        /// </summary>
+        /// <param name="state">State to check for.</param>
+        /// <returns>True if this state or any of its sub-states are equal to
+        /// <paramref name="state"/>, false otherwise.</returns>
+        bool Includes(TState state);
     }
 }

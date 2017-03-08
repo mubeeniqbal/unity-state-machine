@@ -72,19 +72,51 @@ namespace TurboLabz.UnityStateMachine
             return _transitions[trigger];
         }
 
-        public void OnEnter()
+        public void OnEnter(ITransition<TState, TTrigger> transition)
         {
+            // In order to enter this state we have to enter it's super states
+            // first.
+            if (superState != null)
+            {
+                superState.OnEnter(transition);
+            }
+
+            if (_isActive)
+            {
+                return;
+            }
+
             foreach (Action action in _entryActions)
             {
                 action();
             }
+
+            _isActive = true;
         }
 
-        public void OnExit()
+        public void OnExit(ITransition<TState, TTrigger> transition)
         {
+            // 1. If this state is inactive then we are not inside this state or
+            // any of its sub-states.
+            // 2. Don't call exit actions if this state or any of its sub-states
+            // are the destination state.
+            if (!_isActive || Includes(transition.destination))
+            {
+                return;
+            }
+
+            // Call the exit actions.
             foreach (Action action in _exitActions)
             {
                 action();
+            }
+
+            _isActive = false;
+
+            // Exit all super states recursively.
+            if (superState != null)
+            {
+                superState.OnExit(transition);
             }
         }
 
@@ -116,6 +148,29 @@ namespace TurboLabz.UnityStateMachine
             }
 
             _exitActions.Add(action);
+        }
+
+        public bool Includes(TState state)
+        {
+            bool includesState = false;
+
+            if (this.state.Equals(state))
+            {
+                includesState = true;
+            }
+            else
+            {
+                foreach (IStateRepresentation<TState, TTrigger> subState in _subStates)
+                {
+                    if (subState.Includes(state))
+                    {
+                        includesState = true;
+                        break;
+                    }
+                }
+            }
+
+            return includesState;
         }
     }
 }

@@ -74,8 +74,9 @@ namespace TurboLabz.UnityStateMachine
                 _onTransition();
             }
 
-            oldStateRepresentation.OnExit();
-            newStateRepresentation.OnEnter();
+            ITransition<TState, TTrigger> transition = new Transition<TState, TTrigger>(oldState, newState, trigger);
+            oldStateRepresentation.OnExit(transition);
+            newStateRepresentation.OnEnter(transition);
             currentState = newState;
         }
 
