@@ -1,5 +1,6 @@
 /// @license MIT License <https://opensource.org/licenses/MIT>
 /// @copyright Copyright (C) Turbo Labz 2017 - All rights reserved
+/// Source from this file can be used as per the license agreement
 /// Open source
 /// 
 /// @author Mubeen Iqbal <mubeen@turbolabz.com>
