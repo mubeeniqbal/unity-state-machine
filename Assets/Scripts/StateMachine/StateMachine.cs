@@ -112,7 +112,7 @@ namespace TurboLabz.UnityStateMachine
             return ("Current state: " + currentState + " | Permitted triggers: " + triggers);
         }
 
-        private IStateRepresentation<TState, TTrigger> GetStateRepresentation(TState state)
+        public IStateRepresentation<TState, TTrigger> GetStateRepresentation(TState state)
         {
             if (!_stateConfigurations.ContainsKey(state))
             {

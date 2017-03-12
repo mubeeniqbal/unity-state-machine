@@ -103,17 +103,17 @@ namespace TurboLabz.UnityStateMachine
         IStateConfiguration<TState, TTrigger> OnExit(Action action);
 
         /// <summary>
-        /// Sets the superstate that the configured state is a substate of.
+        /// Sets the super state that the configured state is a substate of.
         /// </summary>
         /// <remarks>
-        /// Substates inherit the allowed transitions of their superstate.
+        /// Substates inherit the allowed transitions of their super state.
         /// When entering directly into a substate from outside of the
-        /// superstate, entry actions for the superstate are executed.
-        /// Likewise when leaving from the substate to outside the supserstate,
-        /// exit actions for the superstate will execute.
+        /// super state, entry actions for the super state are executed.
+        /// Likewise when leaving from the substate to outside the super state,
+        /// exit actions for the super state will execute.
         /// </remarks>
-        /// <param name="superstate">The superstate.</param>
+        /// <param name="superState">The super state.</param>
         /// <returns>The receiver.</returns>
-        IStateConfiguration<TState, TTrigger> SubstateOf(TState superstate);
+        IStateConfiguration<TState, TTrigger> SubstateOf(TState superState);
     }
 }

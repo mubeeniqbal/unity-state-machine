@@ -67,6 +67,13 @@ namespace TurboLabz.UnityStateMachine
         void OnTransitioned(Action action);
 
         /// <summary>
+        /// Return the state representation object for the given state.
+        /// </summary>
+        /// <param name="state">The state to find the representation object
+        /// for.</param>
+        IStateRepresentation<TState, TTrigger> GetStateRepresentation(TState state);
+
+        /// <summary>
         /// A human-readable representation of the state machine.
         /// </summary>
         /// <returns>A description of the current state and permitted

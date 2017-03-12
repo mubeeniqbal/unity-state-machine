@@ -88,9 +88,16 @@ namespace TurboLabz.UnityStateMachine
             return this;
         }
 
-        public IStateConfiguration<TState, TTrigger> SubstateOf(TState superstate)
+        public IStateConfiguration<TState, TTrigger> SubstateOf(TState superState)
         {
-            return null;
+            // Check for accidental identical cyclic configuration.
+            if (state.Equals(superState))
+            {
+                throw new ArgumentException("Configuring " + state + " as a substate of " + superState + " creates an illegal cyclic configuration.");
+            }
+
+            stateRepresentation.superState = machine.GetStateRepresentation(superState);
+            return this;
         }
     }
 }

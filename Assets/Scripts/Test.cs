@@ -57,6 +57,7 @@ namespace TurboLabz.UnityStateMachine
                      .Permit(Trigger.PlacedOnHold, State.OnHold);
 
             phoneCall.Configure(State.OnHold)
+                     .SubstateOf(State.Connected)
                      .Permit(Trigger.TakenOffHold, State.Connected)
                      .Permit(Trigger.HungUp, State.OffHook)
                      .Permit(Trigger.PhoneHurledAgainstWall, State.PhoneDestroyed);
