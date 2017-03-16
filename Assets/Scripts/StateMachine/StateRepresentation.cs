@@ -20,7 +20,9 @@ namespace TurboLabz.UnityStateMachine
         // Remember that transitions are always outgoing for a state. They
         // can never be incoming. Every state can only control where it can
         // go next, not from where the state was reached.
-        private readonly IDictionary<TTrigger, TState> _transitions = new Dictionary<TTrigger, TState>();
+
+        // These transitions belong to this state only, not to the super states.
+        private readonly IDictionary<TTrigger, TState> _ownTransitions = new Dictionary<TTrigger, TState>();
         private bool _isActive;
         private readonly IList<Action> _entryActions = new List<Action>();
         private readonly IList<Action> _exitActions = new List<Action>();
@@ -29,11 +31,46 @@ namespace TurboLabz.UnityStateMachine
         public TState state { get; private set; }
         public IStateRepresentation<TState, TTrigger> superState { get; set; }
 
+        // These are all the transitions i.e.
+        // inherited (from super states) + own transitions.
+        public IDictionary<TTrigger, TState> transitions
+        {
+            get
+            {
+                IDictionary<TTrigger, TState> allTransitions = new Dictionary<TTrigger, TState>();
+
+                if (superState != null)
+                {
+                    foreach (KeyValuePair<TTrigger, TState> item in superState.transitions)
+                    {
+                        if (allTransitions.ContainsKey(item.Key))
+                        {
+                            throw new InvalidOperationException("The trigger '" + item.Key + "' is already present in one of the super state transitions of the state '" + item.Value + "'.");
+                        }
+
+                        allTransitions.Add(item);
+                    }
+                }
+
+                foreach (KeyValuePair<TTrigger, TState> item in _ownTransitions)
+                {
+                    if (allTransitions.ContainsKey(item.Key))
+                    {
+                        throw new InvalidOperationException("The trigger '" + item.Key + "' is already present in one of the super state transitions of the state '" + item.Value + "'.");
+                    }
+
+                    allTransitions.Add(item);
+                }
+
+                return allTransitions;
+            }
+        }
+
         public ICollection<TTrigger> permittedTriggers
         {
             get 
             {
-                return _transitions.Keys;
+                return transitions.Keys;
             }
         }
 
@@ -44,37 +81,32 @@ namespace TurboLabz.UnityStateMachine
 
         public bool CanHandle(TTrigger trigger)
         {
-            return _transitions.ContainsKey(trigger);
+            return transitions.ContainsKey(trigger);
         }
 
         public void AddTransition(TTrigger trigger, TState state)
         {
-            _transitions.Add(trigger, state);
-        }
-
-        public void RemoveTransition(TTrigger trigger)
-        {
-            if (!_transitions.ContainsKey(trigger))
+            if (_ownTransitions.ContainsKey(trigger))
             {
-                throw new NotSupportedException("No transition present for trigger " + trigger);
+                throw new InvalidOperationException("The trigger '" + trigger + "' is already present in one of the transitions of the state '" + state + "'.");
             }
 
-            _transitions.Remove(trigger);
+            _ownTransitions.Add(trigger, state);
         }
 
         public TState GetTransitionState(TTrigger trigger)
         {
-            if (!_transitions.ContainsKey(trigger))
+            if (!transitions.ContainsKey(trigger))
             {
                 throw new KeyNotFoundException("No transition present for trigger " + trigger);
             }
 
-            return _transitions[trigger];
+            return transitions[trigger];
         }
 
         public void OnEnter(ITransition<TState, TTrigger> transition)
         {
-            // In order to enter this state we have to enter it's super states
+            // In order to enter this state we have to enter its super states
             // first.
             if (superState != null)
             {

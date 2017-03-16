@@ -19,11 +19,11 @@ namespace TurboLabz.UnityStateMachine
     {
         TState state { get; }
         IStateRepresentation<TState, TTrigger> superState { get; set; }
+        IDictionary<TTrigger, TState> transitions { get; }
         ICollection<TTrigger> permittedTriggers { get; }
 
         bool CanHandle(TTrigger trigger);
         void AddTransition(TTrigger trigger, TState state);
-        void RemoveTransition(TTrigger trigger);
         TState GetTransitionState(TTrigger trigger);
         void OnEnter(ITransition<TState, TTrigger> transition);
         void OnExit(ITransition<TState, TTrigger> transition);

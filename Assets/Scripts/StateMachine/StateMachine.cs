@@ -61,7 +61,7 @@ namespace TurboLabz.UnityStateMachine
         {
             if (!permittedTriggers.Contains(trigger))
             {
-                throw new NotSupportedException("Trigger " + trigger + " is not configured for state " + currentState);
+                throw new NotSupportedException("'" + trigger + "' trigger is not configured for '" + currentState + "' state.");
             }
 
             TState oldState = currentState;
